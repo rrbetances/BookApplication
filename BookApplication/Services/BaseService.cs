@@ -48,6 +48,7 @@ namespace BookApplication.Services
                         break;
                 }
 
+
                 apiResponse = await client.SendAsync(message);
 
                 switch (apiResponse.StatusCode)
