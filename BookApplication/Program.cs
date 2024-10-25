@@ -5,6 +5,19 @@ using BookApplication.Utilities;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(MyAllowSpecificOrigins,
+                          policy =>
+                          {
+                              policy.WithOrigins("http://localhost:4200")
+                                                  .AllowAnyHeader()
+                                                  .AllowAnyMethod();
+                          });
+});
+
 // Add services to the container.
 Utility.BookAPIBase = builder.Configuration["ServiceUrls:BookApi"];
 builder.Services.AddHttpClient("Book", x => x.BaseAddress = new Uri(builder.Configuration["ServiceUrls:BookApi"]));
@@ -23,6 +36,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(MyAllowSpecificOrigins);
 
 app.UseMiddleware<ErrorHandlingMiddleware>();
 

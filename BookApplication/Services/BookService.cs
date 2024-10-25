@@ -45,7 +45,7 @@ namespace BookApplication.Services
 
             if (result.IsSuccess)
             {
-                result.Result = JsonConvert.DeserializeObject<BookDto>(result.Result.ToString());
+                result.Result = JsonConvert.DeserializeObject<List<BookDto>>(result.Result.ToString());
             }
 
             return result;

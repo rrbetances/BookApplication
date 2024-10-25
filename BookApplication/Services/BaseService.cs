@@ -66,7 +66,7 @@ namespace BookApplication.Services
                         var apiContent = await apiResponse.Content.ReadAsStringAsync();
                         var apiResponseDto = new ResponseDto();
 
-                        if (apiResponseDto.Result != null)
+                        if (apiContent != null)
                             apiResponseDto.Result = JsonConvert.DeserializeObject<object>(apiContent);
 
                         return apiResponseDto;

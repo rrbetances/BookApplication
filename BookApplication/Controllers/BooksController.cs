@@ -22,7 +22,7 @@ namespace BookApplication.Controllers
         public async Task<IActionResult> GetAll()
         {
             var result = await bookService.GetAllAsync();
-            return Ok(result);
+            return Ok(result.Result);
         }
 
         [HttpGet("{id}")]
@@ -31,7 +31,7 @@ namespace BookApplication.Controllers
             var result = await bookService.GetByIdAsync(id);
 
             if (result != null && result.IsSuccess)
-                return Ok(result);
+                return Ok(result.Result);
 
             return BadRequest();
         }
