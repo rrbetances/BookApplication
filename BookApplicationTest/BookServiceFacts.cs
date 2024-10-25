@@ -86,6 +86,34 @@ namespace BookApplicationTest
         }
 
         [Fact]
+        public async Task Delete_NotValidId_ReturnsIsSuccessFalse()
+        {
+            var expectedResponse = new ResponseDto { IsSuccess = false, Result = null };
+
+            _mockBaseService.Setup(x => x.SendAsync(It.IsAny<RequestDto>()))
+                .ReturnsAsync(expectedResponse);
+
+            var result = await _bookService.DeleteAsync(500);
+
+            Assert.NotNull(result);
+            Assert.False(result.IsSuccess);
+        }
+
+        [Fact]
+        public async Task Update_NotValidId_ReturnsIsSuccessFalse()
+        {
+            var expectedResponse = new ResponseDto { IsSuccess = false, Result = null };
+
+            _mockBaseService.Setup(x => x.SendAsync(It.IsAny<RequestDto>()))
+                .ReturnsAsync(expectedResponse);
+
+            var result = await _bookService.UpdateAsync(new BookDto { Id = 500 });
+
+            Assert.NotNull(result);
+            Assert.False(result.IsSuccess);
+        }
+
+        [Fact]
         public async Task Create_ValidId_ReturnsOk()
         {
             var request = new BookDto { Id = 1, Title = "Test Book 1", PageCount = 100, Description = "Test", PublishDate = DateTime.Now, Excerpt = "AAA" };
